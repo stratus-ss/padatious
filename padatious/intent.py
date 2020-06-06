@@ -70,8 +70,13 @@ class Intent(Trainable):
         return self
 
     def train(self, train_data):
-        tokens = set([token for sent in train_data.my_sents(self.name)
-                      for token in sent if token.startswith('{')])
+        tokens = {
+            token
+            for sent in train_data.my_sents(self.name)
+            for token in sent
+            if token.startswith('{')
+        }
+
         self.pos_intents = [PosIntent(i, self.name) for i in tokens]
 
         self.simple_intent.train(train_data)

@@ -40,10 +40,9 @@ class PosIntent(object):
         def is_valid(l_pos, r_pos):
             if r_pos < l_pos:
                 return False
-            for p in range(l_pos, r_pos + 1):
-                if orig_data.sent[p].startswith('{'):
-                    return False
-            return True
+            return not any(
+                orig_data.sent[p].startswith('{') for p in range(l_pos, r_pos + 1)
+            )
 
         possible_matches = []
         for l_conf, l_pos in l_matches:

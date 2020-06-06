@@ -221,7 +221,7 @@ class IntentContainer(object):
         Returns:
             bool: True if training succeeded without timeout
         """
-        if not self.must_train and not force:
+        if not (self.must_train or force):
             return
         self.padaos.compile()
         self.train_thread = Thread(target=self._train, kwargs=dict(

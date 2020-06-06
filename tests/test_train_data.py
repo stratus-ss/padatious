@@ -29,7 +29,7 @@ class TestTrainData:
         self.data.add_lines('other', ['other'])
 
         def cmp(a, b):
-            return set(' '.join(i) for i in a) == set(' '.join(i) for i in b)
+            return {' '.join(i) for i in a} == {' '.join(i) for i in b}
 
         assert cmp(self.data.my_sents('hi'), [['hi']])
         assert cmp(self.data.other_sents('hi'), [['bye'], ['other']])

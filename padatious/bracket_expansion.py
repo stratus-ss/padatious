@@ -84,7 +84,7 @@ class Sentence(Fragment):
         for sub in self._tree:
             sub_expanded = sub.expand()
             new_expanded = []
-            while len(old_expanded) > 0:
+            while old_expanded:
                 sentence = old_expanded.pop()
                 for new in sub_expanded:
                     new_expanded.append(sentence + new)

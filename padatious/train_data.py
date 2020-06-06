@@ -26,7 +26,10 @@ class TrainData(object):
 
     def add_lines(self, name, lines):
         lines = remove_comments(lines)
-        self.sent_lists[name] = sum([expand_parentheses(tokenize(line)) for line in lines], [])
+        self.sent_lists[name] = sum(
+            (expand_parentheses(tokenize(line)) for line in lines), []
+        )
+
         self.sent_lists[name] = [i for i in self.sent_lists[name] if i]
 
     def remove_lines(self, name):
@@ -39,15 +42,12 @@ class TrainData(object):
 
     def all_sents(self):
         for _, sents in self.sent_lists.items():
-            for i in sents:
-                yield i
+            yield from sents
 
     def my_sents(self, my_name):
-        for i in self.sent_lists[my_name]:
-            yield i
+        yield from self.sent_lists[my_name]
 
     def other_sents(self, my_name):
         for name, sents in self.sent_lists.items():
             if name != my_name:
-                for i in sents:
-                    yield i
+                yield from sents
